@@ -25,8 +25,8 @@ export class User extends CoreEntity {
   @IsPhoneNumber('VN', { message: 'Invalid phone number format' })
   phone_number: string
 
-  @Column({ enum: GENDER_ENUM, default: GENDER_ENUM.OTHER })
-  gender: GENDER_ENUM
+  @Column({ type: 'enum', enum: GENDER_ENUM, default: GENDER_ENUM.OTHER })
+  gender: string
 
   @Column()
   password: string
