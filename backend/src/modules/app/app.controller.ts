@@ -3,6 +3,6 @@ import { Controller, Post, Body, HttpException, HttpStatus, Get, Req, Res } from
 export class AppController {
   @Get()
   hello() {
-    return ''
+    return 'Lom zom'
   }
 }
