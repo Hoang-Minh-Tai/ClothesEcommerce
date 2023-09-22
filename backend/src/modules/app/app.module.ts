@@ -13,6 +13,7 @@ import { mailerConfig } from '../mail/mail-config.service'
 import databaseConfig from 'src/config/database.config'
 import mailConfig from 'src/config/mail.config'
 import appConfig from 'src/config/app.config'
+import { AppLoggerMiddleware } from 'src/middlewares/logger.middleware'
 
 @Module({
   imports: [
@@ -41,5 +42,7 @@ import appConfig from 'src/config/app.config'
   providers: [AppService],
 })
 export class AppModule {
-
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(AppLoggerMiddleware).forRoutes('*')
+  }
 }

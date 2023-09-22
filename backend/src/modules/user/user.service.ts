@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { nanoid } from 'nanoid' // Import nanoid/async
 import { Repository } from 'typeorm'
@@ -20,16 +20,17 @@ export class UserService {
   /* Method receives user's register data, create a new user and send verification email*/
   async register(userRegisterDto: EmailRegisterDto) {
     const tokenLength = 6
+    // throw new HttpException('What now', 444)
 
     // Check exist email and username
     const { email, username } = userRegisterDto
     const userByEmail = await this.userRepository.findOneBy({ email })
     if (userByEmail) {
-      return 'email already exists'
+      throw new BadRequestException('Email already exists.')
     }
     const userByUsername = await this.userRepository.findOneBy({ username })
     if (userByUsername) {
-      return 'username already exists'
+      throw new BadRequestException('Username already exists.')
     }
 
     // Create new user

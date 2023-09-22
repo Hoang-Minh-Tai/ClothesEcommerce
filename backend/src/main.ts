@@ -6,6 +6,7 @@ import * as compression from 'compression'
 import { ConfigService } from '@nestjs/config'
 import { ValidationPipe } from '@nestjs/common'
 import validationPipeOptions from './utils/validation-pipe-option'
+import { BaseExceptionFilter } from './exceptions/exception.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -26,6 +27,9 @@ async function bootstrap() {
 
   // Validation
   app.useGlobalPipes(new ValidationPipe(validationPipeOptions))
+
+  // Exception
+  app.useGlobalFilters(new BaseExceptionFilter())
 
   await app.listen(configService.get('APP_PORT'))
 }

@@ -31,10 +31,9 @@ export class User extends CoreEntity {
   role: ROLE_ENUM
 
   @Column({ unique: true })
-  @IsEmail()
   email: string
 
-  @Column({ unique: true })
+  @Column()
   phone_number: string
 
   @Column({ default: false })
