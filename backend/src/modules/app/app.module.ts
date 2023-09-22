@@ -14,11 +14,16 @@ import databaseConfig from 'src/config/database.config'
 import mailConfig from 'src/config/mail.config'
 import appConfig from 'src/config/app.config'
 import { AppLoggerMiddleware } from 'src/middlewares/logger.middleware'
+import authConfig from 'src/config/auth.config'
+import { AuthModule } from '../auth/auth.module'
 
 @Module({
   imports: [
     // For configuration
-    ConfigModule.forRoot({ isGlobal: true, load: [appConfig, databaseConfig, mailConfig] }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [appConfig, authConfig, databaseConfig, mailConfig],
+    }),
 
     // For connecting db
     TypeOrmModule.forRootAsync({
@@ -33,6 +38,7 @@ import { AppLoggerMiddleware } from 'src/middlewares/logger.middleware'
     }),
 
     // Entity modules
+    AuthModule,
     UserModule,
     ItemModule,
     CartModule,

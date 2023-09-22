@@ -21,7 +21,7 @@ export class MailService {
   }
 
   async verifyEmail(email: string, token: string) {
-    const verificationLink = `${process.env.BACKEND_DOMAIN}/confirm/${token}` // Assuming you have BACKEND_URL set in your environment variables
+    const verificationLink = `${process.env.BACKEND_DOMAIN}/auth/confirm/${token}`
 
     await this.mailerService.sendMail({
       to: email,
@@ -33,7 +33,7 @@ export class MailService {
         text1: 'Hey!',
         text2: 'You’re almost ready to start enjoying',
         text3: 'Simply click the big green button below to verify your email address.',
-        verificationLink: verificationLink, // Pass this to your template
+        verificationLink: verificationLink,
       },
     })
   }
