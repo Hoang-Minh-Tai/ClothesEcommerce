@@ -17,5 +17,12 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": ["src/**/*.ts", "mail-templates/**/*.hbs"],
+  "copyFiles": [
+    {
+      "from": "src/modules/mail/mail-templates",
+      "to": "./dist/modules/mail/mail-templates"
+    }
+  ]
 }

@@ -1,16 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConfigService } from '@nestjs/config';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import { ConfigService } from '@nestjs/config'
 
-export const databaseConfig = (
-  configService: ConfigService,
-): TypeOrmModuleOptions => ({
+export const dataSource = (configService: ConfigService): TypeOrmModuleOptions => ({
   type: 'mysql',
-  host: configService.get<string>('DATABASE_HOST'),
-  port: configService.get<number>('DATABASE_PORT'),
-  username: configService.get<string>('DATABASE_USERNAME'),
-  password: configService.get<string>('DATABASE_PASSWORD'),
-  database: configService.get<string>('DATABASE_NAME'),
+  host: configService.get('database.host'),
+  port: configService.get('database.port'),
+  username: configService.get('database.username'),
+  password: configService.get('database.password'),
+  database: configService.get('database.name'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: true,
-});
+})
