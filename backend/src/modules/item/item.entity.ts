@@ -16,12 +16,12 @@ export class Item extends CoreEntity {
   code: string
 
   @Column()
-  quantity: string
+  quantity: number
 
-  @Column()
+  @Column({ nullable: true })
   introduction: string
 
-  @Column()
+  @Column({ nullable: true })
   description: string
 
   @Column({ type: 'enum', enum: CATEGORY_ENUM })

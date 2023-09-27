@@ -16,6 +16,7 @@ import appConfig from 'src/config/app.config'
 import { AppLoggerMiddleware } from 'src/middlewares/logger.middleware'
 import authConfig from 'src/config/auth.config'
 import { AuthModule } from '../auth/auth.module'
+import { OrderModule } from '../order/order.module'
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { AuthModule } from '../auth/auth.module'
     UserModule,
     ItemModule,
     CartModule,
+    OrderModule,
     DiscountModule,
   ],
   controllers: [AppController],
