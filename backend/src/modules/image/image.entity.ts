@@ -5,7 +5,7 @@ import { Item } from '../item/item.entity'
 @Entity()
 export class Image extends CoreEntity {
   @Column()
-  imagePath: string
+  path: string
 
   @ManyToOne(() => Item, (item) => item.images)
   item: Item

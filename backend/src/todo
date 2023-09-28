@@ -1,1 +1,4 @@
 1. verify token should search for email instead of token.
+2. Trim fields in dto
+3. cascade
+4. validate image upload
