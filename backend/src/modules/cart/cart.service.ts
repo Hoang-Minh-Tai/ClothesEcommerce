@@ -38,10 +38,10 @@ export class CartService {
     const { itemId, quantity } = updateItemQuantityDto
 
     // Find the cart item by userId and itemId.
-    const cartItem = await this.cartRepository.findOneBy({ userId, itemId })
+    let cartItem = await this.cartRepository.findOneBy({ userId, itemId })
 
-    if (!cartItem) {
-      throw new NotFoundException('Cart item not found')
+    if (!cartItem && quantity !== 0) {
+      cartItem = this.cartRepository.create({ userId, itemId })
     }
 
     // Update the quantity of the cart item.
@@ -52,5 +52,15 @@ export class CartService {
     cartItem.quantity = quantity
 
     return this.cartRepository.save(cartItem)
+  }
+
+  async getCart(userId: string): Promise<Cart[]> {
+    // Find all item in cart, apply any discount and sum up
+    const itemList = this.cartRepository.findBy({ userId })
+    return itemList
+  }
+
+  async clearCart(userId: string) {
+    await this.cartRepository.delete({ userId })
   }
 }

@@ -27,12 +27,9 @@ export class Order extends CoreEntity {
   billingAddress: string
 
   @Column()
-  paymentMethod: string
-
-  @Column()
   totalPrice: number
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, { cascade: true })
   orderItems: OrderItem[]
 
   @Column({ nullable: true })

@@ -13,7 +13,7 @@ export class OrderController {
 
   @Post()
   async createOrder(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.createOrder(createOrderDto)
+    return this.orderService.createOrder(null, createOrderDto)
   }
 
   @Put(':id')

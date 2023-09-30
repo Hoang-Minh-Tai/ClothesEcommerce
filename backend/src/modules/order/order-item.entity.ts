@@ -1,11 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
+import { CoreEntity } from '../core/core.entity'
 import { Order } from './order.entity'
 
 @Entity()
-export class OrderItem {
-  @PrimaryGeneratedColumn()
-  id: number
-
+export class OrderItem extends CoreEntity {
   @ManyToOne(() => Order, (order) => order.orderItems)
   order: Order
 
@@ -20,6 +18,4 @@ export class OrderItem {
 
   @Column('decimal', { precision: 10, scale: 2 })
   price: number
-
-  // You can include additional fields related to the order item, such as discounts, tax, etc.
 }

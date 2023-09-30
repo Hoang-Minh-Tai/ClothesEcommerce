@@ -11,9 +11,9 @@ export class CartController {
   //     return this.cartService.addItemToCart(createCartItemDto)
   //   }
 
-  @Post('update-quantity/:itemId')
+  @Post('update-quantity')
   async updateCartItemQuantity(@Req() req, @Body() updateItemQuantityDto: UpdateItemQuantityDto) {
-    const userId = req.getUser
+    const userId = '94e2b121-68a3-40ff-baf3-31403ff253be'
     return this.cartService.updateCartItemQuantity(userId, updateItemQuantityDto)
   }
 }

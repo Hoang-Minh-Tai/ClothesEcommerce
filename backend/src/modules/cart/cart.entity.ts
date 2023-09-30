@@ -14,7 +14,7 @@ export class Cart {
   @PrimaryColumn()
   itemId: string
 
-  @ManyToOne(() => Item)
+  @ManyToOne(() => Item, { eager: true, cascade: true })
   item: Item
 
   @Column()
