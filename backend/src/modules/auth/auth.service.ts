@@ -112,4 +112,9 @@ export class AuthService {
 
     return { access_token, refresh_token }
   }
+
+  // Implement methods for user validation, token generation, etc.
+  async validateUser(userId: string) {
+    return this.userRepository.findOneBy({ id: userId })
+  }
 }

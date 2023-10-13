@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config'
 import { ValidationPipe } from '@nestjs/common'
 import validationPipeOptions from './utils/validation-pipe-option'
 import { BaseExceptionFilter } from './exceptions/exception.filter'
+import setupSwagger from './setupSwagger'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -15,6 +16,8 @@ async function bootstrap() {
   useContainer(app.select(AppModule), { fallbackOnErrors: true })
 
   app.enableShutdownHooks()
+
+  setupSwagger(app)
 
   app.use(helmet())
 
@@ -27,6 +30,8 @@ async function bootstrap() {
 
   // Validation
   app.useGlobalPipes(new ValidationPipe(validationPipeOptions))
+
+  // app.useGlobalGuards(AuthGuard)
 
   // Exception
   app.useGlobalFilters(new BaseExceptionFilter())

@@ -17,6 +17,9 @@ import { AppLoggerMiddleware } from 'src/middlewares/logger.middleware'
 import authConfig from 'src/config/auth.config'
 import { AuthModule } from '../auth/auth.module'
 import { OrderModule } from '../order/order.module'
+import { APP_GUARD } from '@nestjs/core'
+import { JwtModule } from '@nestjs/jwt'
+import { PassportModule } from '@nestjs/passport'
 
 @Module({
   imports: [
@@ -36,6 +39,16 @@ import { OrderModule } from '../order/order.module'
     MailerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: mailerConfig, // Use the mailerConfig function to configure MailerModule
+    }),
+
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get('auth.secret'),
+        signOptions: {
+          expiresIn: configService.get('auth.expires'),
+        },
+      }),
     }),
 
     // Entity modules

@@ -9,7 +9,6 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common'
-import { AuthGuard } from './auth.guard'
 import { AuthService } from './auth.service'
 import { EmailRegisterDto } from './dto/email-register.dto'
 import { UserLoginDto } from './dto/user-login.dto'
@@ -17,12 +16,6 @@ import { UserLoginDto } from './dto/user-login.dto'
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
-  @Get('test')
-  @UseGuards(AuthGuard)
-  hello() {
-    return 'You need to be user to see this'
-  }
 
   @Post('login')
   login(@Body() userLoginDto: UserLoginDto) {
