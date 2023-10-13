@@ -21,18 +21,19 @@ export class MailService {
   }
 
   async verifyEmail(email: string, token: string) {
-    const verificationLink = `${process.env.BACKEND_DOMAIN}/auth/confirm/${token}`
+    const verificationLink = `${process.env.BACKEND_DOMAIN}/auth/confirm?email=${email}&token=${token}`
 
     await this.mailerService.sendMail({
       to: email,
       subject: 'Verification email',
       template: 'confirm-email',
       context: {
-        app_name: 'Souvenir',
-        title: 'Confirm email',
-        text1: 'Hey!',
-        text2: 'You’re almost ready to start enjoying',
-        text3: 'Simply click the big green button below to verify your email address.',
+        app_name: this.configService.get('app.name'),
+        title: 'Verify Your Email Address',
+        text1: 'Hello!',
+        text2: `Thank you for signing up with ${this.configService.get('app.name')}.`,
+        text3:
+          'To complete the registration process, please click the button below to verify your email address.',
         verificationLink: verificationLink,
       },
     })

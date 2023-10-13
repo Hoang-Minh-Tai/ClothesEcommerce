@@ -20,6 +20,7 @@ import { OrderModule } from '../order/order.module'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
+import { TrimJsonMiddleware } from 'src/middlewares/trimJson.middleware'
 
 @Module({
   imports: [
@@ -64,6 +65,6 @@ import { PassportModule } from '@nestjs/passport'
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(AppLoggerMiddleware).forRoutes('*')
+    consumer.apply(AppLoggerMiddleware, TrimJsonMiddleware).forRoutes('*')
   }
 }

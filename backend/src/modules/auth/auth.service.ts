@@ -60,16 +60,16 @@ export class AuthService {
     return `Email Verification has been sent to email ${verification.email}. For development, token: ${verification.token}`
   }
 
-  async confirmEmail(token: string): Promise<boolean> {
+  async confirmEmail(token: string, email: string): Promise<boolean> {
     // Validate token
-    const verification = await this.verificationRepository.findOneBy({ token })
+    const verification = await this.verificationRepository.findOneBy({ email })
 
     if (verification) {
-      const user = await this.userRepository.findOneBy({ email: verification.email })
+      const user = await this.userRepository.findOneBy({ email })
       user.verified = true
 
       await this.userRepository.save(user)
-      await this.verificationRepository.delete({ email: user.email })
+      await this.verificationRepository.delete({ email })
 
       return true
     }

@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsPhoneNumber,
   IsStrongPassword,
+  MaxLength,
   MinLength,
   Validate,
 } from 'class-validator'
@@ -13,32 +14,33 @@ import { Transform } from 'class-transformer'
 export class EmailRegisterDto {
   @ApiProperty({ example: 'TaiSmile' })
   @IsNotEmpty()
-  @Transform(({ value }) => value?.toLowerCase().trim())
-  @MinLength(7)
+  @Transform(({ value }) => value?.toLowerCase())
+  @MinLength(5)
+  @MaxLength(20)
   username: string
 
   @ApiProperty({ example: 'test@gmail.com' })
-  @Transform(({ value }) => value?.toLowerCase().trim())
+  @Transform(({ value }) => value?.toLowerCase())
   @IsEmail()
   @IsNotEmpty()
   email: string
 
   @ApiProperty()
-  @MinLength(6)
-  // @IsStrongPassword()
+  @MaxLength(20)
+  @IsStrongPassword({ minLength: 8, minNumbers: 1, minLowercase: 1 })
   password: string
 
   @ApiProperty()
   @IsPhoneNumber('VN', { message: 'Invalid phone number format' })
-  phone_number: string
+  phoneNumber: string
 
   @ApiProperty({ example: 'Tai' })
   @IsNotEmpty()
   @IsOptional()
-  first_name: string
+  firstname: string
 
   @ApiProperty({ example: 'Smile' })
   @IsNotEmpty()
   @IsOptional()
-  last_name: string
+  lastname: string
 }

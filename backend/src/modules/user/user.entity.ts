@@ -1,33 +1,34 @@
-import { IsDate, IsEmail, IsPhoneNumber, maxDate, MaxDate, Min, MinLength } from 'class-validator'
+import { MaxLength, MinLength } from 'class-validator'
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm'
 import { CoreEntity } from '../core/core.entity'
 import * as bcrypt from 'bcryptjs'
-import { GENDER_ENUM } from '../enums/gender.enum'
 import { ROLE_ENUM } from '../enums/role.enum'
 import { Exclude } from 'class-transformer'
 
 @Entity()
 export class User extends CoreEntity {
-  /* -----------------------mandatory----------------------- */
+  /* -----------------------optional----------------------- */
   @Column({ nullable: true })
-  first_name: string
+  firstName: string
 
   @Column({ nullable: true })
-  last_name: string
+  lastName: string
 
-  /* ----------------------optional------------------------- */
+  /* ----------------------mandatory------------------------- */
 
   // @Column()
   // @IsDate()
   // @MaxDate(new Date('2020-12-31'))
   // dob: Date
 
-  @Column()
+  @Column({ unique: true })
   @MinLength(1)
+  @MaxLength(20)
   username: string
 
   @Column()
   @MinLength(7)
+  @Exclude()
   password: string
 
   // Used when create new or update password
@@ -39,7 +40,7 @@ export class User extends CoreEntity {
   @Column({ unique: true })
   email: string
 
-  @Column()
+  @Column({ unique: true })
   phone_number: string
 
   @Column({ default: false })

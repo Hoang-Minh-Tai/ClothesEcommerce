@@ -1,58 +1,28 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
-  ParseFilePipeBuilder,
-  UsePipes,
-  UploadedFiles,
-  Req,
-} from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
-import { FilesInterceptor } from '@nestjs/platform-express'
-import { multerOptions } from '../image/multer.option'
-import { CreateItemDto } from './dto/create-item.dto'
-import { UpdateItemDto } from './dto/update-item.dto'
+import { Controller, Get, Param, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
+import { ApiBearerAuth, ApiTags, ApiOperation } from '@nestjs/swagger'
+import { Roles } from 'src/utils/decorators/roles.decorator'
+import { RolesGuard } from '../auth/roleguard'
+import { ROLE_ENUM } from '../enums/role.enum'
 import { ItemService } from './item.service'
 
+@ApiBearerAuth()
+@ApiTags('Item')
+@Roles(ROLE_ENUM.USER)
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @Controller('items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  @Post('upload/:id')
-  @UseInterceptors(FilesInterceptor('images', 10, multerOptions))
-  uploadImages(@Param('id') itemId: string, @UploadedFiles() images: Array<Express.Multer.File>) {
-    return this.itemService.uploadImages(itemId, images)
-  }
-
-  @Post('create')
-  async create(@Body() createItemDto: CreateItemDto) {
-    return this.itemService.create(createItemDto)
-  }
-
-  @Get('get')
+  @ApiOperation({ summary: 'Find All Items' })
+  @Get()
   async findAll() {
     return this.itemService.findAll()
   }
 
-  @Get('get/:id')
+  @ApiOperation({ summary: 'Find an Item by ID' })
+  @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.itemService.findOne(id)
-  }
-
-  @Put('update/:id')
-  async update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
-    return this.itemService.update(id, updateItemDto)
-  }
-
-  @Delete('delete/:id')
-  async remove(@Param('id') id: string) {
-    return this.itemService.remove(id)
   }
 }
