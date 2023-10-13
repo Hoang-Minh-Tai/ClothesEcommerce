@@ -1,0 +1,45 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>{{title}}</title>
+  </head>
+  <body style='margin: 0; font-family: Arial; background-color: #f2f2f2;'>
+    <table
+      style='border: 0; width: 100%; background-color: #fff; max-width: 600px; margin: 0 auto; padding: 20px;'
+    >
+      <tr>
+        <td
+          style='padding: 20px; color: #333; font-size: 16px; font-weight: 400; text-align: center;'
+        >
+          <h1>Welcome to {{app_name}}</h1>
+          <p>{{text1}}</p>
+          <p>{{text2}}</p>
+          <p>{{text3}}</p>
+
+          <!-- Verification Link Button -->
+          <a
+            href='{{verificationLink}}'
+            style='
+              background-color: #007bff;
+              color: white;
+              padding: 12px 20px;
+              text-decoration: none;
+              display: inline-block;
+              margin-top: 20px;
+              border-radius: 5px;
+            '
+          >Verify Your Email</a>
+
+          <!-- Additional Information or Instructions -->
+          <p>
+            If the button above does not work, you can also verify your email by copying and pasting
+            the following link into your browser:
+            <br />
+            <a href='{{verificationLink}}' style='color: #007bff;'>{{verificationLink}}</a>
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+1. verify token should search for email instead of token. (need test)
+2. Trim fields in dto (done)
+3. cascade
+4. validate image upload
+5. translate error messages
